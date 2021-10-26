@@ -16,8 +16,8 @@ private:
     Texture2D texture{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D idle{LoadTexture("characters/knight_idle_spritesheet.png")};
     Texture2D run{LoadTexture("characters/knight_run_spritesheet.png")};
-    Vector2 screenPos;
-    Vector2 worldPos;
+    Vector2 screenPos{};
+    Vector2 worldPos{};
     // 1: facing right, -1: facing left
     float rightLeft{1.0};
     // animations variables
@@ -68,6 +68,11 @@ void Character::tick(float deltaTime)
         if (frame > maxFrames)
             frame = 0;
     }
+
+    // draw a character
+    Rectangle source{frame * (float)texture.width / 6.f, 0.f, rightLeft * (float)texture.width / 6.f, (float)texture.height};
+    Rectangle dest{screenPos.x, screenPos.y, 4.0f * (float)texture.width / 6.0f, 4.0f * (float)texture.height};
+    DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
 }
 
 int main()
@@ -78,34 +83,24 @@ int main()
     InitWindow(windowWidth, windowHeight, "Kyufujiin Rpg Game");
 
     // var
-    float speed = 5;
-
+    Character knight;
+    knight.setScreenPos(windowWidth, windowHeight);
+    
     Texture2D map = LoadTexture("nature_tileset/WorldMap.png");
     Vector2 mapPos{0.0, 0.0};
-
-    Texture2D knight = LoadTexture("characters/knight_idle_spritesheet.png");
-    Texture2D knight_idle = LoadTexture("characters/knight_idle_spritesheet.png");
-    Texture2D knight_run = LoadTexture("characters/knight_run_spritesheet.png");
-
-    Vector2 knightPos{
-        windowWidth / 2.0f - 4.0f * (0.5f * (float)knight.width / 6.0f),
-        windowHeight / 2.0f - 4.0f * (0.5f * (float)knight.height)};
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
-
         BeginDrawing();
         ClearBackground(WHITE);
 
+        mapPos=Vector2Scale(knight.getWorldPos(), -1.f);
+        
         // draw a map
         DrawTextureEx(map, mapPos, 0.0, 3.0, WHITE);
-
-        // draw a character
-        Rectangle source{frame * (float)knight.width / 6.f, 0.f, rightLeft * (float)knight.width / 6.f, (float)knight.height};
-        Rectangle dest{knightPos.x, knightPos.y, 4.0f * (float)knight.width / 6.0f, 4.0f * (float)knight.height};
-        DrawTexturePro(knight, source, dest, Vector2{}, 0.f, WHITE);
+        knight.tick(GetFrameTime());
         EndDrawing();
     }
 
