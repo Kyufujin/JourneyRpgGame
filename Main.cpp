@@ -19,7 +19,7 @@ private:
     Vector2 screenPos{};
     Vector2 worldPos{};
     // 1: facing right, -1: facing left
-    float rightLeft{1.0};
+    float rightLeft{1.f};
     // animations variables
     float runningTime{};
     int frame{};
@@ -31,8 +31,8 @@ private:
 void Character::setScreenPos(int winWidth, int winHeight)
 {
     screenPos = {
-        winWidth / 2.0f - 4.0f * (0.5f * (float)texture.width / 6.0f),
-        winHeight / 2.0f - 4.0f * (0.5f * (float)texture.height)};
+        (float)winWidth / 2.0f - 4.0f * (0.5f * (float)texture.width / 6.0f),
+        (float)winHeight / 2.0f - 4.0f * (0.5f * (float)texture.height)};
 }
 
 void Character::tick(float deltaTime)
@@ -50,7 +50,7 @@ void Character::tick(float deltaTime)
     if (Vector2Length(direction) != 0.0)
     {
         // set worldpost = worldpos + direction
-        worldPos = Vector2Subtract(worldPos, Vector2Scale(Vector2Normalize(direction), speed));
+        worldPos = Vector2Add(worldPos, Vector2Scale(Vector2Normalize(direction), speed));
         direction.x < 0.f ? rightLeft = -1.f : rightLeft = 1.f;
         texture = run;
     }
@@ -85,7 +85,7 @@ int main()
     // var
     Character knight;
     knight.setScreenPos(windowWidth, windowHeight);
-    
+
     Texture2D map = LoadTexture("nature_tileset/WorldMap.png");
     Vector2 mapPos{0.0, 0.0};
 
@@ -96,8 +96,8 @@ int main()
         BeginDrawing();
         ClearBackground(WHITE);
 
-        mapPos=Vector2Scale(knight.getWorldPos(), -1.f);
-        
+        mapPos = Vector2Scale(knight.getWorldPos(), -1.f);
+
         // draw a map
         DrawTextureEx(map, mapPos, 0.0, 3.0, WHITE);
         knight.tick(GetFrameTime());
