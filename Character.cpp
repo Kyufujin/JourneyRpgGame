@@ -16,8 +16,15 @@ void Character::setScreenPos(int winWidth, int winHeight)
     };
 }
 
+void Character::undoMovement()
+{
+    worldPos=worldPosLastFrame;
+}
+
 void Character::tick(float deltaTime)
 {
+    worldPosLastFrame=worldPos;
+
     Vector2 direction{};
     if (IsKeyDown(KEY_A))
         direction.x -= 1.0;
@@ -27,6 +34,8 @@ void Character::tick(float deltaTime)
         direction.y -= 1.0;
     if (IsKeyDown(KEY_S))
         direction.y += 1.0;
+        
+    
 
     if (Vector2Length(direction) != 0.0)
     {
@@ -39,6 +48,7 @@ void Character::tick(float deltaTime)
     {
         texture = idle;
     }
+    
 
     // update animation frame
     runningTime += deltaTime;
@@ -51,7 +61,8 @@ void Character::tick(float deltaTime)
     }
 
     // draw a character
-    Rectangle source{frame * width / 6.f, 0.f, rightLeft * width, height};
+    Rectangle source{frame * width , 0.f, rightLeft * width, height};
     Rectangle dest{screenPos.x, screenPos.y, 4.0f * width, 4.0f * height};
     DrawTexturePro(texture, source, dest, Vector2{}, 0.f, WHITE);
 }
+
