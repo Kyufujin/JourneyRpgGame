@@ -1,11 +1,10 @@
 #include "raylib.h"
 
-
-class Character
+class Enemy
 {
 public:
+    Enemy(Vector2 pos, Texture2D idle_texture, Texture2D run_texture);
     Vector2 getWorldPos() { return worldPos; }
-    Character(int winWidth, int winHeight);
     void tick(float deltaTime);
     void undoMovement();
     Rectangle getCollisionRec();
@@ -28,6 +27,4 @@ private:
     float updateTime{1.f / 12.f};
     float speed{4.f};
     float scale{4.0f};
-    
-
 };
