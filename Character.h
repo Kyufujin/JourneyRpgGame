@@ -3,16 +3,16 @@
 #include "raylib.h"
 #include "BaseCharacter.h"
 
-
 class Character : public BaseCharacter
 {
 public:
     Character(int winWidth, int winHeight);
+    virtual Vector2 getScreenPos() override;
     virtual void tick(float deltaTime) override;
-private:
-  
-    
 
+private:
+    int windowWidth{};
+    int windowHeight{};
 };
 
-#endif 
+#endif
