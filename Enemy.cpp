@@ -32,3 +32,12 @@ Vector2 Enemy::getScreenPos()
 {
     return Vector2Subtract(worldPos, target->getWorldPos());
 }
+
+void Enemy::takeDamage(float damage)
+{
+    health -= damage;
+    if (health <= 0.f)
+    {
+        setAlive(false);
+    }
+}

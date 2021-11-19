@@ -7,8 +7,8 @@
 
 int main()
 {
-    const int windowWidth{384};
-    const int windowHeight{384};
+    const int windowWidth{800};
+    const int windowHeight{800};
     InitWindow(windowWidth, windowHeight, "Kyufujiin Rpg Game");
 
     Texture2D map = LoadTexture("nature_tileset/WorldMap.png");
@@ -19,7 +19,7 @@ int main()
 
     Prop props[2]{
         Prop{Vector2{600.f, 300.f}, LoadTexture("nature_tileset/Rock.png")},
-        Prop{Vector2{400.f, 500.f}, LoadTexture("nature_tileset/Log.png")},
+        Prop{Vector2{1200.f, 600.f}, LoadTexture("nature_tileset/Log.png")},
     };
 
     Enemy goblin{
@@ -70,7 +70,7 @@ int main()
         {
             std::string knightsHealth = "Health: ";
             knightsHealth.append(std::to_string(knight.getHealth()), 0, 5);
-            DrawText(knightsHealth.c_str(), 55.f, 45.f, 40, RED);
+            DrawText(knightsHealth.c_str(), 20.f, 20.f, 30, RED);
         }
 
         knight.tick(GetFrameTime());
@@ -102,7 +102,7 @@ int main()
             {
                 if (CheckCollisionRecs(enemy->getCollisionRec(), knight.getWeaponCollisionRec()))
                 {
-                    enemy->setAlive(false);
+                    enemy->takeDamage(20.f);
                 }
             }
         }

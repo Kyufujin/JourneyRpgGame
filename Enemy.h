@@ -9,9 +9,12 @@ public:
     virtual void tick(float deltaTime) override;
     void setTarget(Character *character) { target = character; }
     virtual Vector2 getScreenPos() override;
+    float getHealth() const {return health; }
+    void takeDamage(float damage);
 
 private:
     Character *target;
     float damagePerSec{10.f};
     float radius{25.f};
+    float health{40.f};
 };
