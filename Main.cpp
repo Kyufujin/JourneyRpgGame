@@ -18,7 +18,7 @@ int main()
 
     Character knight{windowWidth, windowHeight};
     Spawner gameSpawner{50};
-    gameSpawner.initProps(50);
+    gameSpawner.initProps();
     
 
     Enemy goblin{
@@ -54,7 +54,7 @@ int main()
         DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);        
 
         // draw props
-        gameSpawner.printSpawnerProps(50, knight);
+        gameSpawner.printSpawnerProps(knight);
 
         if (!knight.getAlive())
         {

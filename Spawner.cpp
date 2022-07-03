@@ -8,12 +8,12 @@ Spawner::Spawner(const int propsAmount) : amount(propsAmount)
 {
     
 }
-void Spawner::initProps(const int& amount){
+void Spawner::initProps(){
     std::random_device dev;
         for(int i=0; i<amount; i++)
         {
             std::mt19937 rng(dev());
-            std::uniform_int_distribution<std::mt19937::result_type> dist6(1.f,800.f);
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(150.f,800.f);
             gameProps.push_back(
                 Prop{
                     Vector2{dist6(rng), dist6(rng)}, 
@@ -22,7 +22,7 @@ void Spawner::initProps(const int& amount){
             
         }
 }
-void Spawner::printSpawnerProps(const int& amount, Character knight){
+void Spawner::printSpawnerProps(Character knight){
     // draw the props
         for (auto prop : gameProps)
         {
