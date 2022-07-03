@@ -9,5 +9,4 @@ INFO:
 - MORE INFO ABOUR PROJECT IDEA IN -> Journey.pdf
 - move character with w/a/s/d
 - attack with left mouse button
-- Don't worry, game is very short right now. When you'll destroy two enemies, you won't have anything left to do. :)
-- WIP
+- Work In Progress!
