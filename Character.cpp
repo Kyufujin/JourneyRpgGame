@@ -37,7 +37,7 @@ void Character::tick(float deltaTime)
     {
         origin = {0.f, weapon.height * scale};
         offset = {35.f, 55.f};
-        DrawRectangleLinesEx(weaponCollisionRec, 2, RED);
+        //DrawRectangleLinesEx(weaponCollisionRec, 2, RED);
         weaponCollisionRec = {
             getScreenPos().x + offset.x,
             getScreenPos().y + offset.y - weapon.height * scale,
@@ -49,7 +49,7 @@ void Character::tick(float deltaTime)
     {
         origin = {weapon.width * scale, weapon.height * scale};
         offset = {25.f, 55.f};
-        DrawRectangleLinesEx(weaponCollisionRec, 2, RED);
+        //DrawRectangleLinesEx(weaponCollisionRec, 2, RED);
         weaponCollisionRec = {
             getScreenPos().x + offset.x - weapon.width * scale,
             getScreenPos().y + offset.y - weapon.height * scale,

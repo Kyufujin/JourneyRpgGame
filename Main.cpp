@@ -4,11 +4,12 @@
 #include "Enemy.h"
 #include "Prop.h"
 #include <string>
+#include "Spawner.h"
 
 int main()
 {
-    const int windowWidth{800};
-    const int windowHeight{800};
+    const int windowWidth{384};
+    const int windowHeight{384};
     InitWindow(windowWidth, windowHeight, "Kyufujiin Rpg Game");
 
     Texture2D map = LoadTexture("nature_tileset/WorldMap.png");
@@ -16,11 +17,9 @@ int main()
     const float mapScale{4.0f};
 
     Character knight{windowWidth, windowHeight};
-
-    Prop props[2]{
-        Prop{Vector2{600.f, 300.f}, LoadTexture("nature_tileset/Rock.png")},
-        Prop{Vector2{1200.f, 600.f}, LoadTexture("nature_tileset/Log.png")},
-    };
+    Spawner gameSpawner{50};
+    gameSpawner.initProps(50);
+    
 
     Enemy goblin{
         Vector2{800.f, 300.f},
@@ -52,13 +51,10 @@ int main()
         mapPos = Vector2Scale(knight.getWorldPos(), -1.f);
 
         // draw a map
-        DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);
+        DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);        
 
-        // draw the props
-        for (auto prop : props)
-        {
-            prop.Render(knight.getWorldPos());
-        }
+        // draw props
+        gameSpawner.printSpawnerProps(50, knight);
 
         if (!knight.getAlive())
         {
@@ -83,7 +79,7 @@ int main()
             knight.undoMovement();
         }
         // check prop bounds
-        for (auto prop : props)
+        for (auto prop : gameSpawner.getProps())
         {
             if (CheckCollisionRecs(prop.getCollisionRec(knight.getWorldPos()), knight.getCollisionRec()))
             {
